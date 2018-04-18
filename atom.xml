@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.imsiupong.top/"/>
-  <updated>2018-04-18T12:57:41.701Z</updated>
+  <updated>2018-04-18T13:24:56.013Z</updated>
   <id>http://www.imsiupong.top/</id>
   
   <author>
@@ -17,31 +17,16 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>序</title>
-    <link href="http://www.imsiupong.top/2018/04/18/%E5%BC%80%E7%AF%87/"/>
-    <id>http://www.imsiupong.top/2018/04/18/开篇/</id>
-    <published>2018-04-18T11:40:56.000Z</published>
-    <updated>2018-04-18T12:57:41.701Z</updated>
-    
-    <content type="html"><![CDATA[<h2 style="text-align:center"> 开篇 </h2><p>做为博客搭建后的第一条, 系统的阐述一下搭建时的想法还是很有必要的：</p><ul><li>为了记录我在开发和学习过程中学习到的新的技术知识等</li><li>阐述自己的有关技术部分想法并将之实践的过程</li><li>记录自己的其他状态等</li></ul><p>前几条博文主要以基础知识、调试技能介绍为主。后期则开始在我最大能力的前提下，尽量系统、详细的描述相关知识技能等。</p>]]></content>
+    <title>Start</title>
+    <link href="http://www.imsiupong.top/2018/04/18/Start/"/>
+    <id>http://www.imsiupong.top/2018/04/18/Start/</id>
+    <published>2018-04-18T13:24:55.000Z</published>
+    <updated>2018-04-18T13:24:56.013Z</updated>
     
     <summary type="html">
     
-      
-      
-        &lt;h2 style=&quot;text-align:center&quot;&gt; 开篇 &lt;/h2&gt;
-
-
-&lt;p&gt;做为博客搭建后的第一条, 系统的阐述一下搭建时的想法还是很有必要的：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;为了记录我在开发和学习过程中学习到的新的技术知识等&lt;/li&gt;
-&lt;li&gt;阐述自己的有关技术部分想
-      
-    
     </summary>
     
-    
-      <category term="iOS开发 iOS Develop" scheme="http://www.imsiupong.top/tags/iOS%E5%BC%80%E5%8F%91-iOS-Develop/"/>
     
   </entry>
   
