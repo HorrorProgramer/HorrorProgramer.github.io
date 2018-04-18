@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>LLDB的基本使用 | IMSiuPong | PangJunJie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="LLDB的基本介绍LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。LLDB 绑定在 Xcode 内部，存在于主窗口底部的控制台中。调试器允许你在程序运行的特定时暂停它，你可以查看变量的值，执行自定的指令，并且按照你所认为合适的步骤来操作程序的进展。 基础使用help命令: 可以使用help &amp;lt;command&amp;gt;来了解有关命令的详细信息 print命令:">
+<meta name="keywords" content="iOS Develop Technology">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLDB的基本使用">
+<meta property="og:url" content="http://www.imsiupong.top/2018/04/18/LLDB的基本使用/index.html">
+<meta property="og:site_name" content="IMSiuPong">
+<meta property="og:description" content="LLDB的基本介绍LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。LLDB 绑定在 Xcode 内部，存在于主窗口底部的控制台中。调试器允许你在程序运行的特定时暂停它，你可以查看变量的值，执行自定的指令，并且按照你所认为合适的步骤来操作程序的进展。 基础使用help命令: 可以使用help &amp;lt;command&amp;gt;来了解有关命令的详细信息 print命令:">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://wx1.sinaimg.cn/mw690/93f43f2fgy1fqh5hklovpj207601o0hi.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw690/93f43f2fgy1fqh5hklbyzj21ag0ledgt.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw690/93f43f2fgy1fqh5hkj8awj20eg05u3yh.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw690/93f43f2fgy1fqh5hksntvj20pk0e8dgi.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw690/93f43f2fgy1fqh5hkl0rdj20wg0c8dgf.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw690/93f43f2fgy1fqh5hkwgl6j21au0j2jsu.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/mw690/93f43f2fgy1fqh5hko4zfj20t20vojtd.jpg">
+<meta property="og:updated_time" content="2018-04-18T14:14:38.984Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LLDB的基本使用">
+<meta name="twitter:description" content="LLDB的基本介绍LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。LLDB 绑定在 Xcode 内部，存在于主窗口底部的控制台中。调试器允许你在程序运行的特定时暂停它，你可以查看变量的值，执行自定的指令，并且按照你所认为合适的步骤来操作程序的进展。 基础使用help命令: 可以使用help &amp;lt;command&amp;gt;来了解有关命令的详细信息 print命令:">
+<meta name="twitter:image" content="https://wx1.sinaimg.cn/mw690/93f43f2fgy1fqh5hklovpj207601o0hi.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="IMSiuPong" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">庞俊杰</h5>
+          <a href="mailto:xwpangjunjie@163.com" title="xwpangjunjie@163.com" class="mail">xwpangjunjie@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/HorrorProgramer" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">LLDB的基本使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">LLDB的基本使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-04-18T13:29:20.000Z" itemprop="datePublished" class="page-time">
+  2018-04-18
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LLDB的基本介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">LLDB的基本介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">基础使用</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-LLDB的基本使用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">LLDB的基本使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-04-18 21:29:20" datetime="2018-04-18T13:29:20.000Z"  itemprop="datePublished">2018-04-18</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="LLDB的基本介绍"><a href="#LLDB的基本介绍" class="headerlink" title="LLDB的基本介绍"></a>LLDB的基本介绍</h2><p>LLDB 是一个有着 REPL 的特性和 C++ ,Python 插件的开源调试器。LLDB 绑定在 Xcode 内部，存在于主窗口底部的控制台中。调试器允许你在程序运行的特定时暂停它，你可以查看变量的值，执行自定的指令，并且按照你所认为合适的步骤来操作程序的进展。</p>
+<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><p><strong>help命令</strong>: 可以使用<code>help &lt;command&gt;</code>来了解有关命令的详细信息</p>
+<p><strong>print命令</strong>: 也可以使用<code>prin</code>、<code>p</code>或者<code>pri</code>来替换, print命令可以打印对象, 使用print -o(po), 也可以打印不同格式的变量<code>rint/&lt;fmt&gt;</code>或<code>p/&lt;fmt&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print命令详解：当运行p count = 18表达式并输出count时，会发现结果和expression count = 18的结果是一样的，原因是因为当使用expression命令来修改某个变量的值时，expression可能需要参数，而print命令不必，expression为了标识和参数，会以--做为标识结束，以及输入的开始。</span><br><span class="line">例如： 果想要 -h 作为标识，就用 e -h -- +17，如果想计算它们的差值，就使用 e -- -h +17</span><br><span class="line">因为一般来说不使用标识的情况比较多，所以 e -- 就有了一个简写的方式，那就是 print。</span><br></pre></td></tr></table></figure>
+<p><strong>expression命令</strong>: 可以使用<code>e</code>来替换, <code>expression</code>不仅可以改变调试器中的值，也可以改变程序中的值, 在调试器中还可以通过声明一个变量来减少输入量，不过为了能使用声明的变量, 变量必须以<code>美元符号$</code>开头</p>
+<p>##流程控制</p>
+<p>一般情况下，当程序运行到断点位置时，在调试条上会出现四个可以用来控制程序执行流程的按钮：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wx1.sinaimg.cn/mw690/93f43f2fgy1fqh5hklovpj207601o0hi.jpg" alt="fourControlBtn" title="">
+                </div>
+                <div class="image-caption">fourControlBtn</div>
+            </figure>
+<p>从左到右，四个按钮分别是：<code>continue</code>，<code>step over</code>，<code>step into</code>，<code>step out</code></p>
+<ol>
+<li><code>continue</code> 会取消程序的暂停，允许程序正常执行 (要么一直执行下去，要么到达下一个断点)。在LLDB中，你可以使用<code>process continue</code>命令来达到同样的效果，它的别名为<code>continue</code>，或者也可以缩写为<code>c</code></li>
+<li><code>step over</code>按钮，会以黑盒的方式执行一行代码。如果所在这行代码是一个函数调用，那么就不会跳进这个函数，而是会执行这个函数，然后继续。LLDB则可以使用<code>thread step-over</code>，<code>next</code>，或者<code>n</code>命令。</li>
+<li><code>step in</code> 跳进一个函数调用来调试或者检查程序的执行情况, 或者在LLDB中使用<code>thread step in</code>，<code>step</code>，或者<code>s</code>命令。注意，如果当前行不是函数调用时，<code>next</code>和<code>step</code>效果是一样的。</li>
+<li><code>step out</code> 会执行到下一个返回语句 (直到一个堆栈帧结束) 然后停止</li>
+<li>调试时，还有一个很棒的函数可以用来控制程序流程：<code>thread return</code>。它有一个可选参数，在执行时它会把可选参数加载进返回寄存器里，然后立刻执行返回命令，跳出当前栈帧。这意味这函数剩余的部分不会被执行。这会给<code>ARC</code>的引用计数造成一些问题，或者会使函数内的清理部分失效。但是在函数的开头执行这个命令，是个非常好的隔离这个函数，伪造返回值的方式 。</li>
+</ol>
+<p>##断点</p>
+<p>在 Xcode 的左侧面板，有一组按钮。其中一个看起来像断点。点击它打开断点导航，这是一个可以快速管理所有断点的面板。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wx3.sinaimg.cn/mw690/93f43f2fgy1fqh5hklbyzj21ag0ledgt.jpg" alt="breakPointManager" title="">
+                </div>
+                <div class="image-caption">breakPointManager</div>
+            </figure>
+<p>在这里你可以看到所有的断点 - 在LLDB中通过<code>breakpoint lis</code>(或者<code>br li</code>) 命令也做同样的事儿。你也可以点击单个断点来开启或关闭 - 在LLDB中使用<code>breakpoint enable &lt;breakpointID&gt;</code>和<code>breakpoint disable &lt;breakpointID&gt;</code></p>
+<p>###创建断点</p>
+<p>在上面的例子中，我们通过在源码页面器的滚槽16上点击来创建断点。你可以通过把断点拖拽出滚槽，然后释放鼠标来删除断点 (消失时会有一个非常可爱的噗的一下的动画)。你也可以在断点导航页选择断点，然后按下删除键删除。</p>
+<p>要在调试器中创建断点，可以使用<code>breakpoint set</code>命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) breakpoint set -f main.m -l 16</span><br><span class="line">Breakpoint 1: where = DebuggerDance`main + 27 at main.m:16, address = 0x000000010a3f6cab</span><br></pre></td></tr></table></figure>
+<p>也可以使用缩写形式<code>br</code>。虽然<code>b</code>是一个完全不同的命令 (_regexp-break 的缩写)，但恰好也可以实现和上面同样的效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) b main.m:17</span><br><span class="line">Breakpoint 2: where = DebuggerDance`main + 52 at main.m:17, address = 0x000000010a3f6cc4</span><br></pre></td></tr></table></figure>
+<p>也可以在一个符号 (C 语言函数) 上创建断点，而完全不用指定哪一行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(lldb) b isEven</span><br><span class="line">Breakpoint 3: where = DebuggerDance`isEven + 16 at main.m:4, address = 0x000000010a3f6d00</span><br><span class="line">(lldb) br s -F isEven</span><br><span class="line">Breakpoint 4: where = DebuggerDance`isEven + 16 at main.m:4, address = 0x000000010a3f6d00</span><br></pre></td></tr></table></figure>
+<p>这些断点会准确的停止在函数的开始。Objective-C 的方法也完全可以：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(lldb) breakpoint set -F &quot;-[NSArray objectAtIndex:]&quot;</span><br><span class="line">Breakpoint 5: where = CoreFoundation`-[NSArray objectAtIndex:], address = 0x000000010ac7a950</span><br><span class="line">(lldb) b -[NSArray objectAtIndex:]</span><br><span class="line">Breakpoint 6: where = CoreFoundation`-[NSArray objectAtIndex:], address = 0x000000010ac7a950</span><br><span class="line">(lldb) breakpoint set -F &quot;+[NSSet setWithObject:]&quot;</span><br><span class="line">Breakpoint 7: where = CoreFoundation`+[NSSet setWithObject:], address = 0x000000010abd3820</span><br><span class="line">(lldb) b +[NSSet setWithObject:]</span><br><span class="line">Breakpoint 8: where = CoreFoundation`+[NSSet setWithObject:], address = 0x000000010abd3820</span><br></pre></td></tr></table></figure>
+<p>如果想在 Xcode 的UI上创建符号断点，你可以点击断点栏左侧的 + 按钮。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wx3.sinaimg.cn/mw690/93f43f2fgy1fqh5hkj8awj20eg05u3yh.jpg" alt="addBreakPoint" title="">
+                </div>
+                <div class="image-caption">addBreakPoint</div>
+            </figure>
+<p>然后选择第三个选项：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wx4.sinaimg.cn/mw690/93f43f2fgy1fqh5hksntvj20pk0e8dgi.jpg" alt="adBreakPoint" title="">
+                </div>
+                <div class="image-caption">adBreakPoint</div>
+            </figure>
+<p>这时会出现一个弹出框，你可以在里面添加例如<code>-[NSArray objectAtIndex:]</code>这样的符号断点。这样每次调用这个函数的时候，程序都会停止，不管是你调用还是苹果调用。</p>
+<p>如果你 Xcode 的 UI 上右击任意断点，然后选择 “Edit Breakpoint” 的话，会有一些非常诱人的选择。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wx3.sinaimg.cn/mw690/93f43f2fgy1fqh5hkl0rdj20wg0c8dgf.jpg" alt="addBreakPoint" title="">
+                </div>
+                <div class="image-caption">addBreakPoint</div>
+            </figure>
+<p>###断点行为</p>
+<p>上面的例子中，你或许想知道每一次到达断点的时候 i 的值。我们可以使<code>p i</code>作为断点行为。这样每次到达断点的时候，都会自动运行这个命令。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wx4.sinaimg.cn/mw690/93f43f2fgy1fqh5hkwgl6j21au0j2jsu.jpg" alt="breakPointAction" title="">
+                </div>
+                <div class="image-caption">breakPointAction</div>
+            </figure>
+<p>你也可以添加多个行为，可以是调试器命令，shell 命令，也可以是更直接的打印：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wx1.sinaimg.cn/mw690/93f43f2fgy1fqh5hko4zfj20t20vojtd.jpg" alt="breaPointAction" title="">
+                </div>
+                <div class="image-caption">breaPointAction</div>
+            </figure>
+<p>看编辑断点弹出窗口的底部，你还会看到一个选项： “Automatically continue after evaluation actions.” 。它仅仅是一个选择框，但是却很强大。选中它，调试器会运行你所有的命令，然后继续运行。看起来就像没有执行任何断点一样 (除非断点太多，运行需要一段时间，拖慢了你的程序)。</p>
+<p>这个选项框的效果和让最后断点的最后一个行为是 continue 一样。选框只是让这个操作变得更简单。</p>
+<p>执行断点后自动继续运行，允许你完全通过断点来修改程序！你可以在某一行停止，运行一个 expression 命令来改变变量，然后继续运行。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2018-04-18T14:14:38.984Z" itemprop="dateUpdated">2018-04-18 22:14:38</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/04/18/LLDB的基本使用/" target="_blank" rel="external">http://www.imsiupong.top/2018/04/18/LLDB的基本使用/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.imsiupong.top">
+            <img src="/img/avatar.png" alt="庞俊杰">
+            庞俊杰
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/&title=《LLDB的基本使用》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/&title=《LLDB的基本使用》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《LLDB的基本使用》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/&via=http://www.imsiupong.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/04/18/Start/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Start</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>庞俊杰 &copy; 2015 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/&title=《LLDB的基本使用》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/&title=《LLDB的基本使用》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《LLDB的基本使用》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/&via=http://www.imsiupong.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/18/LLDB的基本使用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aQW7CQAwFUO5/aSp1Vamd8O1JUHHerBAKSd4sjO3x4xGv5/daff65fl+zuvJ4Pa5YGBgYH8tIbnf8mOOXzr9PtmlJxcDAuAEjD7LHD6hGwtVL5++GgYGBkQTc5D7HITXfPgwMDIyEkTw+CbsYGBgYVUaStFUTx5yXB/oTanEMDIwPZOwfDFz3+a3nGxgYGP+S8bxg5c243mHAH/fEwMAYzai21Xa+T44BjgvmF0EZAwPjNoydBlnC6CWC0fUYGBi3ZPTaZ9Xkrxpqo4dhYGAMZSQJ4nUDXtUhMwwMjLsxqgExSQrzX+2DMTAwZjPyAHfd+EU1QYymRTAwMAYxkh8ngTVJCnvHmc2mGwYGxlBGL9Tm6eP+KFhe6GJgYMxj5CXrTk++OmxRTk8xMDCGMs4ayeo18atBdonHwMAYzchvnaeJO2G6dw0GBsYdGL1xiqQo7Q1P5LDlvwcGBsZQxs4wVnU4LNmOvJTFwMCYzUgeX0X2Gm1JWI/6hRgYGOMYO43+6rhGtcHXK7YxMDDmMXpHjDvBunfA8OJtMTAwRjPyMrIXKHsbUe3/Y2BgzGY8i6sKzhO+JA0t9AsxMDAGMXpDGL0jyf2NOGFhYGB8LKPXyt8HV1t7L4pYDAyMGzD207Ueshr0l7/CwMDAKA549Q4vCy+NgYGBEQTHZJCrOqjR2yAMDIz7MPIitlro7jTaCtuHgYExmnHuwUBS9PYabcmfBAYGxjjGF4q1ZavhWbuQAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
