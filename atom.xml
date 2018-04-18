@@ -2,15 +2,15 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>IMSiuPong</title>
   
-  
+  <subtitle>PangJunJie</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://imsiupong.top/"/>
   <updated>2018-04-18T11:41:38.149Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://imsiupong.top/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>庞俊杰</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>序</title>
-    <link href="http://yoursite.com/2018/04/18/%E5%BA%8F/"/>
-    <id>http://yoursite.com/2018/04/18/序/</id>
+    <link href="http://imsiupong.top/2018/04/18/%E5%BA%8F/"/>
+    <id>http://imsiupong.top/2018/04/18/序/</id>
     <published>2018-04-18T11:40:56.000Z</published>
     <updated>2018-04-18T11:41:38.149Z</updated>
     
@@ -28,7 +28,7 @@
     </summary>
     
     
-      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS开发" scheme="http://imsiupong.top/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
