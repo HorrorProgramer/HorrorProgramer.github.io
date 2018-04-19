@@ -20,19 +20,21 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="">
-    <meta name="description" content="iOS开发技术">
-<meta name="keywords" content="iOS Develop Technology">
+    <meta name="keywords" content="iOS Objective-C Object Class Develop">
+    <meta name="description" content="#Objective-C 类和对象 ##类和对象的结构 继承于NSObject的类所生成的对象在runtime中都可以表示为这样的： 12345struct objc_object &amp;#123;private:    isa_t isa;&amp;#125;;本文着重介绍类和对象 结构体中的其他参数会在后续的文章中介绍到 isa就是一个isa_t类型的结构体，从名字也可以看出来这个结构体指明了这个对象是什">
+<meta name="keywords" content="iOS Objective-C Object Class Develop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Objective-C Runtime 类和对象的理解">
 <meta property="og:url" content="http://www.imsiupong.top/2018/04/18/ClassAndObjects/index.html">
 <meta property="og:site_name" content="IMSiuPong">
-<meta property="og:description" content="iOS开发技术">
+<meta property="og:description" content="#Objective-C 类和对象 ##类和对象的结构 继承于NSObject的类所生成的对象在runtime中都可以表示为这样的： 12345struct objc_object &amp;#123;private:    isa_t isa;&amp;#125;;本文着重介绍类和对象 结构体中的其他参数会在后续的文章中介绍到 isa就是一个isa_t类型的结构体，从名字也可以看出来这个结构体指明了这个对象是什">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-18T14:28:36.641Z">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw690/93f43f2fgy1fqi0bj9y9pj20jg0kd751.jpg">
+<meta property="og:updated_time" content="2018-04-19T08:01:45.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C Runtime 类和对象的理解">
-<meta name="twitter:description" content="iOS开发技术">
+<meta name="twitter:description" content="#Objective-C 类和对象 ##类和对象的结构 继承于NSObject的类所生成的对象在runtime中都可以表示为这样的： 12345struct objc_object &amp;#123;private:    isa_t isa;&amp;#125;;本文着重介绍类和对象 结构体中的其他参数会在后续的文章中介绍到 isa就是一个isa_t类型的结构体，从名字也可以看出来这个结构体指明了这个对象是什">
+<meta name="twitter:image" content="https://wx4.sinaimg.cn/mw690/93f43f2fgy1fqi0bj9y9pj20jg0kd751.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="IMSiuPong" href="/atom.xml">
     
@@ -169,6 +171,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#isa结构详细分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">isa结构详细分析</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-ClassAndObjects"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -189,7 +198,29 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <p>#Objective-C 类和对象</p>
+<p>##类和对象的结构</p>
+<p>继承于NSObject的类所生成的对象在runtime中都可以表示为这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct objc_object &#123;</span><br><span class="line">private:</span><br><span class="line">    isa_t isa;</span><br><span class="line">&#125;;</span><br><span class="line">本文着重介绍类和对象 结构体中的其他参数会在后续的文章中介绍到</span><br></pre></td></tr></table></figure>
+<p>isa就是一个isa_t类型的结构体，从名字也可以看出来这个结构体指明了这个对象是什么，也就是所属的类，isa_t结构体的定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">union isa_t </span><br><span class="line">&#123;</span><br><span class="line">    Class cls; //对像所属的类在内存的位置或类的信息</span><br><span class="line">    uintptr_t bits;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到这个结构体中有个类型是Class的属性cls，里面应该存有关于这个对象的类的相关信息。</p>
+<p>Class类的定义如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_class *Class;</span><br><span class="line">struct objc_class : objc_object &#123;</span><br><span class="line">    Class superclass;</span><br><span class="line">    cache_t cache;             // formerly cache pointer and vtable</span><br><span class="line">    class_data_bits_t bits;    // class_rw_t * plus custom rr/alloc flags</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Class就是结构体objc_class,而且objc_class继承于objc_object,所以也可以把Objective-C类看成是一个对象</p>
+<p>如果类也是继承于objc_object，那么Class也有一个isa指针，那么isa指针指向什么位置呢？</p>
+<p>可以查看这些文章的内容: <a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" target="_blank" rel="noopener">Class And MetaClass</a></p>
+<p>大致内容是： 在Class之上还有一种元类(<code>MetaClass</code>)的存在，Class的isa指针指向的就是对应的MetaClass</p>
+<p>在对象Objc中我们知道isa指向的类中描述对象的相关信息，那么相应的MetaClass中存放的就是描述类的相关信息，如方法、属性等，具体例子在文章下方</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://wx4.sinaimg.cn/mw690/93f43f2fgy1fqi0bj9y9pj20jg0kd751.jpg" alt="ClassAndMetaClass" title="">
+                </div>
+                <div class="image-caption">ClassAndMetaClass</div>
+            </figure>
+<p>上面这张图片很清楚的展示了：对象isa、类isa之间的关系</p>
+<h2 id="isa结构详细分析"><a href="#isa结构详细分析" class="headerlink" title="isa结构详细分析"></a>isa结构详细分析</h2>
         </div>
 
         <blockquote class="post-copyright">
@@ -197,7 +228,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-04-18T14:28:36.641Z" itemprop="dateUpdated">2018-04-18 22:28:36</time>
+    Last updated: <time datetime="2018-04-19T08:01:45.584Z" itemprop="dateUpdated">2018-04-19 16:01:45</time>
 </span><br>
 
 
@@ -219,6 +250,8 @@
 
         <div class="post-footer">
             
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-Objective-C-Object-Class-Develop/">iOS Objective-C Object Class Develop</a></li></ul>
+
 
             
 <div class="page-share-wrap">
@@ -275,18 +308,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2018/04/19/Objective-C引用计数原理分析/" id="post-prev" class="post-nav-link">
+      <a href="/2018/04/18/LLDB的基本使用/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Objective-C引用计数原理分析</h4>
+        <h4 class="title">LLDB的基本使用</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/04/18/LLDB的基本使用/" id="post-next" class="post-nav-link">
+      <a href="/2018/04/18/Start/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">LLDB的基本使用</h4>
+        <h4 class="title">Start</h4>
       </a>
     </div>
   

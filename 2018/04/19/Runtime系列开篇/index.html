@@ -14,25 +14,25 @@
     
     
     
-    <title>Start | IMSiuPong | PangJunJie</title>
+    <title>Runtime系列开篇 | IMSiuPong | PangJunJie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="">
-    <meta name="description" content="做为博客搭建后的第一条, 系统的阐述一下搭建时的想法还是很有必要的：  为了记录我在开发和学习过程中学习到的新的技术知识等 阐述自己的有关技术部分想法并将之实践的过程 记录自己的其他状态等  前几条博文主要以基础知识、调试技能介绍为主。后期则开始在我最大能力的前提下，尽量系统、详细的描述相关知识技能等。">
-<meta name="keywords" content="iOS Develop Technology">
+    <meta name="keywords" content="iOS Runtime Develop">
+    <meta name="description" content="前言将在工作学习中使用到的Runtime搜集并整理成如下几类:  Class &amp;amp;&amp;amp; Object Property &amp;amp;&amp;amp; Method Category &amp;amp;&amp;amp; Association Object Message 上层API Runtime应用 其他  参考 苹果官方文档： Runtime Runtime的源码： 可编译源码 其他技术博客： Have">
+<meta name="keywords" content="iOS Runtime Develop">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Start">
-<meta property="og:url" content="http://www.imsiupong.top/2018/04/18/Start/index.html">
+<meta property="og:title" content="Runtime系列开篇">
+<meta property="og:url" content="http://www.imsiupong.top/2018/04/19/Runtime系列开篇/index.html">
 <meta property="og:site_name" content="IMSiuPong">
-<meta property="og:description" content="做为博客搭建后的第一条, 系统的阐述一下搭建时的想法还是很有必要的：  为了记录我在开发和学习过程中学习到的新的技术知识等 阐述自己的有关技术部分想法并将之实践的过程 记录自己的其他状态等  前几条博文主要以基础知识、调试技能介绍为主。后期则开始在我最大能力的前提下，尽量系统、详细的描述相关知识技能等。">
+<meta property="og:description" content="前言将在工作学习中使用到的Runtime搜集并整理成如下几类:  Class &amp;amp;&amp;amp; Object Property &amp;amp;&amp;amp; Method Category &amp;amp;&amp;amp; Association Object Message 上层API Runtime应用 其他  参考 苹果官方文档： Runtime Runtime的源码： 可编译源码 其他技术博客： Have">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-18T13:26:26.100Z">
+<meta property="og:updated_time" content="2018-04-19T06:20:12.213Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Start">
-<meta name="twitter:description" content="做为博客搭建后的第一条, 系统的阐述一下搭建时的想法还是很有必要的：  为了记录我在开发和学习过程中学习到的新的技术知识等 阐述自己的有关技术部分想法并将之实践的过程 记录自己的其他状态等  前几条博文主要以基础知识、调试技能介绍为主。后期则开始在我最大能力的前提下，尽量系统、详细的描述相关知识技能等。">
+<meta name="twitter:title" content="Runtime系列开篇">
+<meta name="twitter:description" content="前言将在工作学习中使用到的Runtime搜集并整理成如下几类:  Class &amp;amp;&amp;amp; Object Property &amp;amp;&amp;amp; Method Category &amp;amp;&amp;amp; Association Object Message 上层API Runtime应用 其他  参考 苹果官方文档： Runtime Runtime的源码： 可编译源码 其他技术博客： Have">
     
         <link rel="alternate" type="application/atom+xml" title="IMSiuPong" href="/atom.xml">
     
@@ -127,7 +127,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Start</div>
+        <div class="flex-col header-title ellipsis">Runtime系列开篇</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -149,11 +149,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Start</h1>
+        <h1 class="title">Runtime系列开篇</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-04-18T13:24:55.000Z" itemprop="datePublished" class="page-time">
-  2018-04-18
+                <time datetime="2018-04-19T06:09:56.000Z" itemprop="datePublished" class="page-time">
+  2018-04-19
 </time>
 
 
@@ -169,14 +169,21 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">2.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-Start"
+
+<article id="post-Runtime系列开篇"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Start</h1>
+        <h1 class="post-card-title">Runtime系列开篇</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-04-18 21:24:55" datetime="2018-04-18T13:24:55.000Z"  itemprop="datePublished">2018-04-18</time>
+            <time class="post-time" title="2018-04-19 14:09:56" datetime="2018-04-19T06:09:56.000Z"  itemprop="datePublished">2018-04-19</time>
 
             
 
@@ -189,13 +196,26 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>做为博客搭建后的第一条, 系统的阐述一下搭建时的想法还是很有必要的：</p>
-<ul>
-<li>为了记录我在开发和学习过程中学习到的新的技术知识等</li>
-<li>阐述自己的有关技术部分想法并将之实践的过程</li>
-<li>记录自己的其他状态等</li>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>将在工作学习中使用到的Runtime搜集并整理成如下几类:</p>
+<ol>
+<li><a href="http://imsiupong.top/2018/04/18/ClassAndObjects/" target="_blank" rel="noopener">Class &amp;&amp; Object</a></li>
+<li>Property &amp;&amp; Method</li>
+<li>Category &amp;&amp; Association Object</li>
+<li>Message</li>
+<li>上层API</li>
+<li>Runtime应用</li>
+<li>其他</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li>苹果官方文档： <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048-CH1-SW1" target="_blank" rel="noopener">Runtime</a></li>
+<li>Runtime的源码： <a href="https://blog.csdn.net/wotors/article/details/54426316" target="_blank" rel="noopener">可编译源码</a></li>
+<li>其他技术博客：<ul>
+<li><a href="https://www.jianshu.com/u/43bb8b1a9d39" target="_blank" rel="noopener">Haven_ZN</a></li>
+<li><a href="https://draveness.me/index" target="_blank" rel="noopener">Draveness</a></li>
+<li><a href="http://vanney9.com/2017/06/03/objective-c-runtime-summarize/" target="_blank" rel="noopener">Vanney</a></li>
 </ul>
-<p>前几条博文主要以基础知识、调试技能介绍为主。后期则开始在我最大能力的前提下，尽量系统、详细的描述相关知识技能等。</p>
+</li>
+</ol>
 
         </div>
 
@@ -204,12 +224,12 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-04-18T13:26:26.100Z" itemprop="dateUpdated">2018-04-18 21:26:26</time>
+    Last updated: <time datetime="2018-04-19T06:20:12.213Z" itemprop="dateUpdated">2018-04-19 14:20:12</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/04/18/Start/" target="_blank" rel="external">http://www.imsiupong.top/2018/04/18/Start/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/04/19/Runtime系列开篇/" target="_blank" rel="external">http://www.imsiupong.top/2018/04/19/Runtime系列开篇/</a>
         
     </div>
     
@@ -226,6 +246,8 @@
 
         <div class="post-footer">
             
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-Runtime-Develop/">iOS Runtime Develop</a></li></ul>
+
 
             
 <div class="page-share-wrap">
@@ -234,7 +256,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/18/Start/&title=《Start》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&title=《Runtime系列开篇》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -244,22 +266,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/18/Start/&title=《Start》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&title=《Runtime系列开篇》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/18/Start/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Start》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/18/Start/&via=http://www.imsiupong.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Runtime系列开篇》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&via=http://www.imsiupong.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/18/Start/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -279,16 +301,16 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2018/04/18/ClassAndObjects/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Objective-C Runtime 类和对象的理解</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/04/19/Objective-C引用计数原理分析/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Objective-C引用计数原理分析</h4>
+      </a>
+    </div>
   
 </nav>
 
@@ -357,7 +379,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/18/Start/&title=《Start》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&title=《Runtime系列开篇》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -367,22 +389,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/18/Start/&title=《Start》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&title=《Runtime系列开篇》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/18/Start/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Start》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/18/Start/&via=http://www.imsiupong.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Runtime系列开篇》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&via=http://www.imsiupong.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/18/Start/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -393,7 +415,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABy0lEQVR42u3aOW4DMQwFUN//0hMgVVJY+SRH8gR4rAwv8puGEJfXK47rO969c/2IyZm3BS4u7ph7LWPNfQd999v167UBFxf3PHedaK4g1jknOT9Kdri4uA/j9u4h63dwcXH/O3eNTi5GvW/i4uJ+ipsUP/kVJ0lh22s1XFzcAbfa3NzxemN/FxcXt8i9irG+7lRLnfK/4+LiHuEmA9Rk1Fp9gGrTpDDvxcXFHXN7bY6k2ZEPUZJzcHFxT3LLX7qpKJokRFxc3N3cZA0rX8+qPkZ+efrjmXBxcTdwJyPSyVpGPpL5lchwcXGPcJORZy+pTdorhVsYLi7uNu4ElA9gyt1cXFzc49y8jJmPSSaDmSip4eLibuBWF6d6j9FriODi4p7kVhsfhclM3DzNmyO4uLhnuNXkVb2IVIuc5kAFFxf3Vm6SqpJkl7dUeoUTLi7ueW6vtVEdh8yHsri4uCe5eeQprHpOefKDi4u7jVtNKMnf9FJh9VNcXNzd3N7yRD5AzVNetKSFi4t7kJsnr94wtZlB8yNwcXE/xM2XMPL2a3U5AxcX98ncqxX5pQcXF/cJ3F6TdF4glU/AxcU9wu1VHL2xa2/NCxcX9yD3C/sSlYyYouZ6AAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3aMZICMQwEQP7/aUgJgB1JS2C7ia7q9rB7gzlZ1uMRf55fPu+//f3k+zPJKo9/fDAwMJZlJAv3Fsh5yboXLwUDA+MARrKJb88nTyZ/9TvKL/aMgYGBERd2yfN5rGNgYGDcxUgOtJOCEgMDAyM/TCatt6SJVg3cm8/iGBgYCzImIfjvn/9yv4GBgbEUo9esz2O3esHwbH0wMDD2ZlRbadUicjKuUR7LwMDAOIaRHDWroxXVi4GL7U56fhgYGIszqqE52Xq1uIzWwsDAOIaRFHDVuKz+ttl6w8DAOICRl3q9SK2Wm4UxCwwMjAMYvbNhbwCiF9mjAQsMDIwtGL+Ltt4RNG/9T5p9F/cbGBgYWzCSg2U1rXvlYD7S8eF5DAyMrRnV1lg1KPMXlIR+9HIxMDC2Y1Qbbb3Y7Y1rFM6nGBgYxzDyhXNSXiD2Iv5DhYuBgbEdI2/H5wMZeVs/X7dZIGJgYGzKqIZpc4RrcOb+uiIGBsbWjGpJl39RdSv3DnZgYGDsxKiG5l1NtHl8j/5vYGBgLMtIvnpyndm7X42GLTAwMA5gzIu8arE4vxYtvAkMDIxlGb3WfxKv+avJLzsvJtowMDA2ZfTCrhqvk8iujsliYGDsyuiFbK+hn5R6vT1gYGCcwKiWbskFQH6F2RvywMDAwOi1+ydHzd7LwsDAwJgMYYy2FQT0KHAxMDAWZCSbqB5cq4MU1VEzDAyMcxiToi2KwtawRTWIMTAwNmW8AAvInTvNazNXAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
