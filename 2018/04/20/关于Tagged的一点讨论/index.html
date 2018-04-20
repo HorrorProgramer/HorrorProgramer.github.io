@@ -14,25 +14,25 @@
     
     
     
-    <title>Runtime系列开篇 | IMSiuPong | PangJunJie</title>
+    <title>关于Tagged的一点讨论 | IMSiuPong | PangJunJie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="iOS Runtime Develop">
-    <meta name="description" content="前言将在工作学习中使用到的Runtime搜集并整理成如下几类:  Class &amp;amp;&amp;amp; Object Property &amp;amp;&amp;amp; Method Category &amp;amp;&amp;amp; Association Object Message 上层API Runtime应用 其他  参考 苹果官方文档： Runtime Runtime的源码： 可编译源码 其他技术博客： Have">
-<meta name="keywords" content="iOS Runtime Develop">
+    <meta name="keywords" content="iOS Devolp">
+    <meta name="description" content="开篇在之前讲述引用计数实现原理的文章中，我有提到过一种特别的存储方式，是使用TaggedPointer的一种特殊的指针来实现计数的，我们会在这彷文章中尽量解释清楚 本文主要参考的文档资料是:  mikeash的Let’s Build Tagged Pointers  基本定义众所周知，指针是一个储存着内存地址的值，在很多的系统架构中存在着一种叫做内存对齐的思想：  数据成员对齐规则：结构(stru">
+<meta name="keywords" content="iOS Devolp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Runtime系列开篇">
-<meta property="og:url" content="http://www.imsiupong.top/2018/04/19/Runtime系列开篇/index.html">
+<meta property="og:title" content="关于Tagged的一点讨论">
+<meta property="og:url" content="http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/index.html">
 <meta property="og:site_name" content="IMSiuPong">
-<meta property="og:description" content="前言将在工作学习中使用到的Runtime搜集并整理成如下几类:  Class &amp;amp;&amp;amp; Object Property &amp;amp;&amp;amp; Method Category &amp;amp;&amp;amp; Association Object Message 上层API Runtime应用 其他  参考 苹果官方文档： Runtime Runtime的源码： 可编译源码 其他技术博客： Have">
+<meta property="og:description" content="开篇在之前讲述引用计数实现原理的文章中，我有提到过一种特别的存储方式，是使用TaggedPointer的一种特殊的指针来实现计数的，我们会在这彷文章中尽量解释清楚 本文主要参考的文档资料是:  mikeash的Let’s Build Tagged Pointers  基本定义众所周知，指针是一个储存着内存地址的值，在很多的系统架构中存在着一种叫做内存对齐的思想：  数据成员对齐规则：结构(stru">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-19T06:20:12.213Z">
+<meta property="og:updated_time" content="2018-04-20T06:25:38.474Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Runtime系列开篇">
-<meta name="twitter:description" content="前言将在工作学习中使用到的Runtime搜集并整理成如下几类:  Class &amp;amp;&amp;amp; Object Property &amp;amp;&amp;amp; Method Category &amp;amp;&amp;amp; Association Object Message 上层API Runtime应用 其他  参考 苹果官方文档： Runtime Runtime的源码： 可编译源码 其他技术博客： Have">
+<meta name="twitter:title" content="关于Tagged的一点讨论">
+<meta name="twitter:description" content="开篇在之前讲述引用计数实现原理的文章中，我有提到过一种特别的存储方式，是使用TaggedPointer的一种特殊的指针来实现计数的，我们会在这彷文章中尽量解释清楚 本文主要参考的文档资料是:  mikeash的Let’s Build Tagged Pointers  基本定义众所周知，指针是一个储存着内存地址的值，在很多的系统架构中存在着一种叫做内存对齐的思想：  数据成员对齐规则：结构(stru">
     
         <link rel="alternate" type="application/atom+xml" title="IMSiuPong" href="/atom.xml">
     
@@ -127,7 +127,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Runtime系列开篇</div>
+        <div class="flex-col header-title ellipsis">关于Tagged的一点讨论</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -149,11 +149,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Runtime系列开篇</h1>
+        <h1 class="title">关于Tagged的一点讨论</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-04-19T06:09:56.000Z" itemprop="datePublished" class="page-time">
-  2018-04-19
+                <time datetime="2018-04-20T05:03:42.000Z" itemprop="datePublished" class="page-time">
+  2018-04-20
 </time>
 
 
@@ -172,18 +172,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">2.</span> <span class="post-toc-text">参考</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开篇"><span class="post-toc-number">1.</span> <span class="post-toc-text">开篇</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本定义"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">基本定义</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-Runtime系列开篇"
+<article id="post-关于Tagged的一点讨论"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Runtime系列开篇</h1>
+        <h1 class="post-card-title">关于Tagged的一点讨论</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-04-19 14:09:56" datetime="2018-04-19T06:09:56.000Z"  itemprop="datePublished">2018-04-19</time>
+            <time class="post-time" title="2018-04-20 13:03:42" datetime="2018-04-20T05:03:42.000Z"  itemprop="datePublished">2018-04-20</time>
 
             
 
@@ -196,25 +196,22 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>将在工作学习中使用到的Runtime搜集并整理成如下几类:</p>
-<ol>
-<li><a href="http://imsiupong.top/2018/04/18/ClassAndObjects/" target="_blank" rel="noopener">Class &amp;&amp; Object</a></li>
-<li>Property &amp;&amp; Method</li>
-<li>Category &amp;&amp; Association Object</li>
-<li>Message</li>
-<li>上层API</li>
-<li>Runtime应用</li>
-<li>其他</li>
-</ol>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li>苹果官方文档： <a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048-CH1-SW1" target="_blank" rel="noopener">Runtime</a></li>
-<li>Runtime的源码： <a href="https://blog.csdn.net/wotors/article/details/54426316" target="_blank" rel="noopener">可编译源码</a></li>
-<li>其他技术博客：<ul>
-<li><a href="https://www.jianshu.com/u/43bb8b1a9d39" target="_blank" rel="noopener">Haven_ZN</a></li>
-<li><a href="https://draveness.me/index" target="_blank" rel="noopener">Draveness</a></li>
-<li><a href="http://vanney9.com/2017/06/03/objective-c-runtime-summarize/" target="_blank" rel="noopener">Vanney</a></li>
+            <h2 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h2><p>在之前讲述<a href="http://imsiupong.top/2018/04/19/Objective-C%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" target="_blank" rel="noopener">引用计数实现原理</a>的文章中，我有提到过一种特别的存储方式，是使用<code>TaggedPointer</code>的一种特殊的指针来实现计数的，我们会在这彷文章中尽量解释清楚</p>
+<p>本文主要参考的文档资料是:</p>
+<ul>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2012-07-27-lets-build-tagged-pointers.html" target="_blank" rel="noopener">mikeash的Let’s Build Tagged Pointers</a></li>
 </ul>
-</li>
+<h3 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h3><p>众所周知，指针是一个储存着内存地址的值，在很多的系统架构中存在着一种叫做<code>内存对齐</code>的思想：</p>
+<ol>
+<li>数据成员对齐规则：结构(<code>struct</code>)(或联合(<code>union</code>))的数据成员，第一个数据成员放在offset为0的地方，以后每个数据成员存储的起始位置要从该成员大小或者成员的子成员大小（只要该成员有子成员，比如说是数组，结构体等）的整数倍开始(比如int在３２位机为４字节, 则要从４的整数倍地址开始存储),基本类型不包括<code>struct/class/uinon</code>。</li>
+<li>结构体作为成员:如果一个结构里有某些结构体成员,则结构体成员要从其内部”最宽基本类型成员”的整数倍地址开始存储.(struct a里存有struct b,b里有char,int ,double等元素,那b应该从8的整数倍开始存储.)。</li>
+<li>收尾工作:结构体的总大小,也就是<code>sizeof</code>的结果,必须是其内部最大成员的”最宽基本类型成员”的整数倍.不足的要补齐.(基本类型不包括struct/class/uinon)。</li>
+<li><code>sizeof(union)</code>，以结构里面size最大元素为union的size,因为在某一时刻，union只有一个成员真正存储于该地址</li>
+</ol>
+<p>内存对齐的主要作用：</p>
+<ol>
+<li>平台原因：不是所有的硬件平台都能访问任意地址上的任意数据的；某些硬件平台只能在某些地址处取某些特定类型的数据，否则抛出硬件异常</li>
+<li>性能原因：经过内存对齐后，CPU的内存访问速度大大提升</li>
 </ol>
 
         </div>
@@ -224,12 +221,12 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-04-19T06:20:12.213Z" itemprop="dateUpdated">2018-04-19 14:20:12</time>
+    Last updated: <time datetime="2018-04-20T06:25:38.474Z" itemprop="dateUpdated">2018-04-20 14:25:38</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/04/19/Runtime系列开篇/" target="_blank" rel="external">http://www.imsiupong.top/2018/04/19/Runtime系列开篇/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/04/20/关于Tagged的一点讨论/" target="_blank" rel="external">http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/</a>
         
     </div>
     
@@ -246,7 +243,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-Runtime-Develop/">iOS Runtime Develop</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-Devolp/">iOS Devolp</a></li></ul>
 
 
             
@@ -256,7 +253,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&title=《Runtime系列开篇》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/&title=《关于Tagged的一点讨论》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -266,22 +263,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&title=《Runtime系列开篇》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/&title=《关于Tagged的一点讨论》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Runtime系列开篇》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&via=http://www.imsiupong.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于Tagged的一点讨论》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/&via=http://www.imsiupong.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -301,21 +298,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2018/04/20/关于Tagged的一点讨论/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">关于Tagged的一点讨论</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/04/19/Objective-C引用计数原理分析/" id="post-next" class="post-nav-link">
+      <a href="/2018/04/19/Runtime系列开篇/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Objective-C引用计数原理分析</h4>
+        <h4 class="title">Runtime系列开篇</h4>
       </a>
     </div>
   
@@ -386,7 +376,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&title=《Runtime系列开篇》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/&title=《关于Tagged的一点讨论》 — IMSiuPong&pic=http://www.imsiupong.top/img/avatar.png" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -396,22 +386,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&title=《Runtime系列开篇》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/&title=《关于Tagged的一点讨论》 — IMSiuPong&source=iOS开发技术" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Runtime系列开篇》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/&via=http://www.imsiupong.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于Tagged的一点讨论》 — IMSiuPong&url=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/&via=http://www.imsiupong.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/19/Runtime系列开篇/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.imsiupong.top/2018/04/20/关于Tagged的一点讨论/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -422,7 +412,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3aMZICMQwEQP7/aUgJgB1JS2C7ia7q9rB7gzlZ1uMRf55fPu+//f3k+zPJKo9/fDAwMJZlJAv3Fsh5yboXLwUDA+MARrKJb88nTyZ/9TvKL/aMgYGBERd2yfN5rGNgYGDcxUgOtJOCEgMDAyM/TCatt6SJVg3cm8/iGBgYCzImIfjvn/9yv4GBgbEUo9esz2O3esHwbH0wMDD2ZlRbadUicjKuUR7LwMDAOIaRHDWroxXVi4GL7U56fhgYGIszqqE52Xq1uIzWwsDAOIaRFHDVuKz+ttl6w8DAOICRl3q9SK2Wm4UxCwwMjAMYvbNhbwCiF9mjAQsMDIwtGL+Ltt4RNG/9T5p9F/cbGBgYWzCSg2U1rXvlYD7S8eF5DAyMrRnV1lg1KPMXlIR+9HIxMDC2Y1Qbbb3Y7Y1rFM6nGBgYxzDyhXNSXiD2Iv5DhYuBgbEdI2/H5wMZeVs/X7dZIGJgYGzKqIZpc4RrcOb+uiIGBsbWjGpJl39RdSv3DnZgYGDsxKiG5l1NtHl8j/5vYGBgLMtIvnpyndm7X42GLTAwMA5gzIu8arE4vxYtvAkMDIxlGb3WfxKv+avJLzsvJtowMDA2ZfTCrhqvk8iujsliYGDsyuiFbK+hn5R6vT1gYGCcwKiWbskFQH6F2RvywMDAwOi1+ydHzd7LwsDAwJgMYYy2FQT0KHAxMDAWZCSbqB5cq4MU1VEzDAyMcxiToi2KwtawRTWIMTAwNmW8AAvInTvNazNXAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwklEQVR42u3awW6cQBAE0P3/n95IUY4BV3Uz6z08ThHBwMPSTLu6X6/4eP897s+059szV3d+4MDDw8MbvfrVcfWY5MHt+XvY1Zmrd8bDw8M7zUsekFy/We7v2cMPioeHh/ervHaxzj/B7Ol4eHh4389Llvui2I3v9tF9Dw8PDy/mJWFE/tLJhpFvDx/KWvDw8PAm63NR4P7uvw/29/Dw8PAWXfXZsnt/fd5g27zhvzvg4eHhHeC10eqs0ZV8ptmV0YaBh4eHd4zXLsSb4YB8wGsWZ/xnY8DDw8N7iJe35/OBgM0G05baPwQWeHh4eMd4SXtpM4yVjwvkb1X/rYCHh4d3mJcPQiWPyRtaeakdfVY8PDy8A7z2kW3x3S7lyabSttbw8PDwnuXNWvh5QbxpjCV3GKYdeHh4eAveJnqYLfdJHNyGF3h4eHif5J1oVrUjU+3SX3xcPDw8vAO8vOTNX+VdHrPENcfj4eHhneDNoof9eMG+cM+LdTw8PLyneHkzKR/PyoOGNkRug2Y8PDy8T/KiH16MFyRxw76phoeHh3eCl5e/eSSxj4afatHh4eHhneC1o06zOHUTCifbVVFS4+Hh4a15T0W0+SdIoo38Ix4fHcDDw8OLl++2aG4j16TUboOJH/Y9PDw8vId4bSC7aepvWl9tDBFtFXh4eHiP8l7x0T4yH1bYtNaK18XDw8Mb8fKhq9kYQb6It/jo14OHh4d3jJcs37NhrFl7rN2iogACDw8Pb817l0d+n4S3KaZXKTUeHh7egjcLHfLCtx0syD9W3pzDw8PDO8F7qsDNwUm766lBLjw8PLxzvM3wU3Jl8r+bHezyKXh4eHhfwMvjhjbUyHlJmw0PDw/vG3izYHcf9eYwPDw8vE/y2kGrWWuqjWjb7WQ4GYGHh4dX8to/9dsm2b5kT7aBx/p7eHh4eHdX/gF6yivw3AhMaAAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 
