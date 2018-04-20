@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="IMSiuPong">
 <meta property="og:description" content="Objective-C引用计数原理分析 本文使用的源码来自objc-4 723和CF-1153.18 本文前半部分着重介绍基本原理，后半部分可以尝试着结合实际问题分析 本文是在看到玉令天下的Objective-C 引用计数原理后决定自己尝试分析源码学习相关知识 本文也参考了太阳神的这篇黑幕背后的Autorelease文章  ##引用计数的存储方式  如果对象支持使用TaggedPointer, 那">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-19T06:05:00.207Z">
+<meta property="og:updated_time" content="2018-04-20T06:27:40.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C引用计数原理分析">
 <meta name="twitter:description" content="Objective-C引用计数原理分析 本文使用的源码来自objc-4 723和CF-1153.18 本文前半部分着重介绍基本原理，后半部分可以尝试着结合实际问题分析 本文是在看到玉令天下的Objective-C 引用计数原理后决定自己尝试分析源码学习相关知识 本文也参考了太阳神的这篇黑幕背后的Autorelease文章  ##引用计数的存储方式  如果对象支持使用TaggedPointer, 那">
@@ -209,7 +209,8 @@
 <li>另外一种情况是<code>Runtime</code>会使用一张散列表来管理引用计数</li>
 <li>是否使用垃圾回收（用UseGC属性判断），但这种早已弃用的东西就不要管了，而且初始化垃圾回收机制的<code>void gc_init(BOOL wantsGC)</code>方法一直被传入 NO。</li>
 </ol>
-<h3 id="TaggedPointer"><a href="#TaggedPointer" class="headerlink" title="TaggedPointer"></a>TaggedPointer</h3><p>判断对象是否使用TaggedPointer是看<code>_OBJC_TAG_MASK</code>的标志位是否是1UL：</p>
+<h3 id="TaggedPointer"><a href="#TaggedPointer" class="headerlink" title="TaggedPointer"></a>TaggedPointer</h3><p>可以阅读<a href="https://www.mikeash.com/pyblog/friday-qa-2012-07-27-lets-build-tagged-pointers.html" target="_blank" rel="noopener">TaggedPointer详解</a></p>
+<p>判断对象是否使用TaggedPointer是看<code>_OBJC_TAG_MASK</code>的标志位是否是1UL：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#if OBJC_MSB_TAGGED_POINTERS</span><br><span class="line">#   define _OBJC_TAG_MASK (1UL&lt;&lt;63)</span><br><span class="line">#else</span><br><span class="line">#   define _OBJC_TAG_MASK 1UL</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">static inline bool </span><br><span class="line">_objc_isTaggedPointer(const void * _Nullable ptr) &#123;</span><br><span class="line">    return ((uintptr_t)ptr &amp; _OBJC_TAG_MASK) == _OBJC_TAG_MASK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline void </span><br><span class="line">objc_object::initIsa(Class cls, bool nonpointer, bool hasCxxDtor) </span><br><span class="line">&#123; </span><br><span class="line">    assert(!isTaggedPointer()); </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>id</code>其实就是<code>objc_object *</code>的简写<code>（typedef struct objc_object *id;）</code>，它的<code>isTaggedPointer()</code>方法经常会在操作引用计数时用到，因为这决定了存储引用计数的策略。</p>
 <h3 id="isa指针"><a href="#isa指针" class="headerlink" title="isa指针"></a>isa指针</h3><p>基础知识：<a href="http://www.sealiesoftware.com/blog/archive/2013/09/24/objc_explain_Non-pointer_isa.html" target="_blank" rel="noopener">为什么使用nonpointer</a></p>
@@ -315,7 +316,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-04-19T06:05:00.207Z" itemprop="dateUpdated">2018-04-19 14:05:00</time>
+    Last updated: <time datetime="2018-04-20T06:27:40.167Z" itemprop="dateUpdated">2018-04-20 14:27:40</time>
 </span><br>
 
 

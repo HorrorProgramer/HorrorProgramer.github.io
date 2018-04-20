@@ -30,7 +30,7 @@
 <meta property="og:description" content="#Objective-C 类和对象 ##类和对象的结构 继承于NSObject的类所生成的对象在runtime中都可以表示为这样的： 12345struct objc_object &amp;#123;private:    isa_t isa;&amp;#125;;本文着重介绍类和对象 结构体中的其他参数会在后续的文章中介绍到 isa就是一个isa_t类型的结构体，从名字也可以看出来这个结构体指明了这个对象是什">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://wx4.sinaimg.cn/mw690/93f43f2fgy1fqi0bj9y9pj20jg0kd751.jpg">
-<meta property="og:updated_time" content="2018-04-19T08:01:45.584Z">
+<meta property="og:updated_time" content="2018-04-20T06:55:29.062Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C Runtime 类和对象的理解">
 <meta name="twitter:description" content="#Objective-C 类和对象 ##类和对象的结构 继承于NSObject的类所生成的对象在runtime中都可以表示为这样的： 12345struct objc_object &amp;#123;private:    isa_t isa;&amp;#125;;本文着重介绍类和对象 结构体中的其他参数会在后续的文章中介绍到 isa就是一个isa_t类型的结构体，从名字也可以看出来这个结构体指明了这个对象是什">
@@ -220,7 +220,16 @@
                 <div class="image-caption">ClassAndMetaClass</div>
             </figure>
 <p>上面这张图片很清楚的展示了：对象isa、类isa之间的关系</p>
-<h2 id="isa结构详细分析"><a href="#isa结构详细分析" class="headerlink" title="isa结构详细分析"></a>isa结构详细分析</h2>
+<h2 id="isa结构详细分析"><a href="#isa结构详细分析" class="headerlink" title="isa结构详细分析"></a>isa结构详细分析</h2><p>isa的结构体如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">union isa_t </span><br><span class="line">&#123;</span><br><span class="line">    isa_t() &#123; &#125;</span><br><span class="line">    isa_t(uintptr_t value) : bits(value) &#123; &#125;</span><br><span class="line"></span><br><span class="line">    Class cls;</span><br><span class="line">    uintptr_t bits;</span><br><span class="line"></span><br><span class="line">#   __x86_64__</span><br><span class="line">#   define ISA_MASK        0x00007ffffffffff8ULL</span><br><span class="line">#   define ISA_MAGIC_MASK  0x001f800000000001ULL</span><br><span class="line">#   define ISA_MAGIC_VALUE 0x001d800000000001ULL</span><br><span class="line">    struct &#123;</span><br><span class="line">        uintptr_t nonpointer        : 1;</span><br><span class="line">        uintptr_t has_assoc         : 1;</span><br><span class="line">        uintptr_t has_cxx_dtor      : 1;</span><br><span class="line">        uintptr_t shiftcls          : 44; </span><br><span class="line">        uintptr_t magic             : 6;</span><br><span class="line">        uintptr_t weakly_referenced : 1;</span><br><span class="line">        uintptr_t deallocating      : 1;</span><br><span class="line">        uintptr_t has_sidetable_rc  : 1;</span><br><span class="line">        uintptr_t extra_rc          : 8;</span><br><span class="line">#       define RC_ONE   (1ULL&lt;&lt;56)</span><br><span class="line">#       define RC_HALF  (1ULL&lt;&lt;7)</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体参数的意义可以查看<a href="http://imsiupong.top/2018/04/19/Objective-C%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" target="_blank" rel="noopener">上篇文章：Objective-C引用计数的实现原理</a></p>
+<p>nonpointer关键字可以阅读这篇文章：<a href="[](http://www.sealiesoftware.com/blog/archive/2013/09/24/objc_explain_Non-pointer_isa.html">nonpointer</a>)</p>
+<p>大意就是在64位系统中，为了提高内存的利用率、提高性能，将isa中的一部分字段来存储其他信息</p>
+<p>引伸一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TaggedPointer和NonPointer的区别(自己理解)：</span><br><span class="line">1. TaggedPointer只使用1位来存储其他信息，isa则使用20位来存储其他信息，存储大小不同</span><br><span class="line">2. 存储位置不同，taggedpointer是在最低位存储 isa则不然</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">inline void </span><br><span class="line">objc_object::initInstanceIsa(Class cls, bool hasCxxDtor)</span><br><span class="line">&#123;</span><br><span class="line">    initIsa(cls, true, hasCxxDtor);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline void </span><br><span class="line">objc_object::initIsa(Class cls, bool nonpointer, bool hasCxxDtor) </span><br><span class="line">&#123; </span><br><span class="line">    if (!nonpointer) &#123;</span><br><span class="line">        isa.cls = cls;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        isa_t newisa(0);</span><br><span class="line">        newisa.bits = ISA_MAGIC_VALUE;</span><br><span class="line">        newisa.has_cxx_dtor = hasCxxDtor;</span><br><span class="line">        newisa.shiftcls = (uintptr_t)cls &gt;&gt; 3;</span><br><span class="line">        isa = newisa;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码为isa的初始化过程，通过代码，我们可以清楚的知道isa是如何实现存储类信息的</p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -228,7 +237,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-04-19T08:01:45.584Z" itemprop="dateUpdated">2018-04-19 16:01:45</time>
+    Last updated: <time datetime="2018-04-20T06:55:29.062Z" itemprop="dateUpdated">2018-04-20 14:55:29</time>
 </span><br>
 
 
